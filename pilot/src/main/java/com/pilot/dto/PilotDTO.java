@@ -1,4 +1,4 @@
-package com.pilot;
+package com.pilot.dto;
 
 public class PilotDTO {
 
