@@ -1,96 +1,79 @@
 package com.pilot.dto;
 
+import java.util.List;
+
 public class PilotDTO {
 
-	private String uid;
-	private String pwd;
-	private String uname;
-	private String notes;
-	private String input_id;
-	private String input_dt;
-	private String update_id;
-	private String update_dt;
-	private int del_flag;
-	private String version;
-
-	public String getUid() {
-		return uid;
+	private String table;
+	private List<String> tableList;
+	private String column;
+	private String columnType;
+	private List<String> columnList;
+	private String value;
+	private List<String> valueList;
+	
+	public PilotDTO() {
+		super();
+	}
+	
+	public PilotDTO(String table) {
+		this.table = table;
 	}
 
-	public void setUid(String uid) {
-		this.uid = uid;
+	public String getTable() {
+		return table;
 	}
 
-	public String getPwd() {
-		return pwd;
+	public void setTable(String table) {
+		this.table = table;
 	}
 
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
+	public List<String> getTableList() {
+		return tableList;
 	}
 
-	public String getUname() {
-		return uname;
+	public void setTableList(List<String> tableList) {
+		this.tableList = tableList;
 	}
 
-	public void setUname(String uname) {
-		this.uname = uname;
+	public String getColumn() {
+		return column;
 	}
 
-	public String getNotes() {
-		return notes;
+	public void setColumn(String column) {
+		this.column = column;
 	}
 
-	public void setNotes(String notes) {
-		this.notes = notes;
+	public String getColumnType() {
+		return columnType;
 	}
 
-	public String getInput_id() {
-		return input_id;
+	public void setColumnType(String columnType) {
+		this.columnType = columnType;
 	}
 
-	public void setInput_id(String input_id) {
-		this.input_id = input_id;
+	public List<String> getColumnList() {
+		return columnList;
 	}
 
-	public String getInput_dt() {
-		return input_dt;
+	public void setColumnList(List<String> columnList) {
+		this.columnList = columnList;
 	}
 
-	public void setInput_dt(String input_dt) {
-		this.input_dt = input_dt;
+	public String getValue() {
+		return value;
 	}
 
-	public String getUpdate_id() {
-		return update_id;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
-	public void setUpdate_id(String update_id) {
-		this.update_id = update_id;
+	public List<String> getValueList() {
+		return valueList;
 	}
 
-	public String getUpdate_dt() {
-		return update_dt;
-	}
-
-	public void setUpdate_dt(String update_dt) {
-		this.update_dt = update_dt;
-	}
-
-	public int getDel_flag() {
-		return del_flag;
-	}
-
-	public void setDel_flag(int del_flag) {
-		this.del_flag = del_flag;
-	}
-
-	public String getVersion() {
-		return version;
-	}
-
-	public void setVersion(String version) {
-		this.version = version;
+	public void setValueList(List<String> valueList) {
+		this.valueList = valueList;
 	}
 
 }

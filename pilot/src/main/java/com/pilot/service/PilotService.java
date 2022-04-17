@@ -1,5 +1,10 @@
 package com.pilot.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +17,76 @@ public class PilotService {
 
 	@Autowired
 	private PrimaryMapper p_dao;
-	
+
 	@Autowired
 	private SubMapper s_dao;
-	
-	public PilotDTO getConnectPrimaryTest() throws Exception {
+
+	public String getConnectPrimaryTest() throws Exception {
 		return p_dao.getConnectTest();
 	}
-	
-	public PilotDTO getConnectSubTest() throws Exception {
+
+	public String getConnectSubTest() throws Exception {
 		return s_dao.getConnectTest();
+	}
+
+	public PilotDTO postCreateTable(PilotDTO param) throws Exception {
+		p_dao.postCreateTable(param);
+		return p_dao.getTable(param);
+	}
+
+	public List<PilotDTO> postInsertTable(PilotDTO param) throws Exception {
+
+		List<PilotDTO> list = new ArrayList<PilotDTO>();
+
+		List<String> valueList = param.getValueList();
+
+		if (valueList.size() < 1000) {
+			return p_dao.postInsertTable(param);
+		}
+
+		int vListSize = valueList.size() / 1000;
+
+		for (int i = 0; i < vListSize + 1; i++) {
+
+			PilotDTO tmpParam = new PilotDTO(param.getTable());
+			List<String> tmpValueList = null;
+
+			if (i == vListSize) {
+				tmpValueList = valueList.subList(i * 1000, (i + 1) * 1000);
+			} else {
+				tmpValueList = valueList.subList(i * 1000, valueList.size());
+			}
+			tmpParam.setValueList(tmpValueList);
+			list.addAll(p_dao.postInsertTable(tmpParam));
+		}
+
+		return list;
+	}
+
+	public Map<String, Object> transferTable(PilotDTO param) throws Exception {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<String> tableList = param.getTableList();
+
+		for (String table : tableList) {
+			List<Map<String, Object>> dataList = p_dao.getTableData(table);
+			Map<String, Object> data = dataList.get(0);
+			List<String> columnList = new ArrayList<String>();
+			
+			data.forEach((column, value) -> {
+				columnList.add(column);
+			});
+			
+			param.setColumnList(columnList);
+
+			if (dataList.size() < 1000) {
+				s_dao.setTableData(param);
+				map.put(table, dataList);
+				continue;
+			}
+		}
+
+		return map;
 	}
 
 }
