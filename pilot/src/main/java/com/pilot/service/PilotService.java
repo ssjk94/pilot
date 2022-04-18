@@ -69,22 +69,14 @@ public class PilotService {
 		List<String> tableList = param.getTableList();
 
 		for (String table : tableList) {
-			List<Map<String, Object>> dataList = p_dao.getTableData(table);
-			List<Map<String, Object>> resList = new ArrayList<Map<String, Object>>();
-			
+			List<Map<String, String>> dataList = p_dao.getTableData(table);
 			List<String> columnList = new ArrayList<String>();
-			
-			dataList.forEach((data) -> {
-				List<String> valueList = new ArrayList<String>();
-				
-				data.forEach((column, value) -> {
-					valueList.add(value.toString());
-				});
-				data.put("valueList", valueList);
-				resList.add(data);
+			Map<String, String> columns = dataList.get(0);
+			columns.forEach((colName, colVal) -> {
+				columnList.add(colVal);
 			});
-			
 			param.setColumnList(columnList);
+			param.setDataList(dataList);
 
 			if (dataList.size() < 1000) {
 				s_dao.setTableData(param);

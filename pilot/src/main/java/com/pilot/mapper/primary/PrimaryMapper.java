@@ -48,6 +48,6 @@ public interface PrimaryMapper {
 	
 	@Select("select *"
 			+ " from ${table}"
-			+ " order by col_01 asc")
-	public List<Map<String, Object>> getTableData(String table) throws Exception;
+			+ " order by 1 asc")
+	public List<Map<String, String>> getTableData(String table) throws Exception;
 }

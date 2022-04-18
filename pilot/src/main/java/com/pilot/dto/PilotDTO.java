@@ -1,6 +1,7 @@
 package com.pilot.dto;
 
 import java.util.List;
+import java.util.Map;
 
 public class PilotDTO {
 
@@ -11,6 +12,7 @@ public class PilotDTO {
 	private List<String> columnList;
 	private String value;
 	private List<String> valueList;
+	private List<Map<String, String>> dataList;
 	
 	public PilotDTO() {
 		super();
@@ -74,6 +76,14 @@ public class PilotDTO {
 
 	public void setValueList(List<String> valueList) {
 		this.valueList = valueList;
+	}
+
+	public List<Map<String, String>> getDataList() {
+		return dataList;
+	}
+
+	public void setDataList(List<Map<String, String>> dataList) {
+		this.dataList = dataList;
 	}
 
 }
