@@ -12,14 +12,15 @@ public class PilotDTO {
 	private List<String> columnList;
 	private String value;
 	private List<String> valueList;
-	private List<Map<String, String>> dataList;
+	private List<Map<String, Object>> dataList;
 	
 	public PilotDTO() {
 		super();
 	}
 	
-	public PilotDTO(String table) {
+	public PilotDTO(String table, List<String> columnList) {
 		this.table = table;
+		this.columnList = columnList;
 	}
 
 	public String getTable() {
@@ -78,11 +79,11 @@ public class PilotDTO {
 		this.valueList = valueList;
 	}
 
-	public List<Map<String, String>> getDataList() {
+	public List<Map<String, Object>> getDataList() {
 		return dataList;
 	}
 
-	public void setDataList(List<Map<String, String>> dataList) {
+	public void setDataList(List<Map<String, Object>> dataList) {
 		this.dataList = dataList;
 	}
 

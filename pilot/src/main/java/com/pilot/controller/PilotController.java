@@ -1,6 +1,5 @@
 package com.pilot.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pilot.config.Log;
 import com.pilot.dto.PilotDTO;
 import com.pilot.service.PilotService;
 
@@ -24,65 +22,90 @@ public class PilotController {
 	@GetMapping(value = "/connectPrimaryTest")
 	public ResponseEntity<?> getConnectTest() {
 		
-		String res = null;
+		Map<String, String> map = null;
 		
 		try {
-			res = service.getConnectPrimaryTest();
+			map = service.getConnectPrimaryTest();
 			
 		} catch (Exception e) {
-			Log.getLog().error(e.getMessage());
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			map = service.errorMessage(e.getMessage());
+			return new ResponseEntity<Map<String, String>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return new ResponseEntity<String>(res, HttpStatus.OK);
+		return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/connectSubTest")
 	public ResponseEntity<?> getConnectSubTest() {
 		
-		String res = null;
+		Map<String, String> map = null;
 		
 		try {
-			res = service.getConnectSubTest();
+			map = service.getConnectSubTest();
 			
 		} catch (Exception e) {
-			Log.getLog().error(e.getMessage());
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			map = service.errorMessage(e.getMessage());
+			return new ResponseEntity<Map<String, String>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/getPrimaryTableDataList")
+	public ResponseEntity<?> getPrimaryTableDataList(@RequestBody PilotDTO param) {
+		
+		Map<String, Object> map = null;
+		
+		try {
+			map = service.getPrimaryTableDataList(param);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<Map<String, String>>(service.errorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		return new ResponseEntity<String>(res, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/getSubTableDataList")
+	public ResponseEntity<?> getSubTableDataList(@RequestBody PilotDTO param) {
+		
+		Map<String, Object> map = null;
+		
+		try {
+			map = service.getSubTableDataList(param);
+			
+		} catch (Exception e) {
+			return new ResponseEntity<Map<String, String>>(service.errorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "createPrimaryTable")
 	public ResponseEntity<?> postCreateTable(@RequestBody PilotDTO param) {
 		
-		PilotDTO dto = null;
+		Map<String, String> map = null;
 		
 		try {
-			dto = service.postCreateTable(param);
+			map = service.postCreateTable(param);
 			
 		} catch (Exception e) {
-			Log.getLog().error(e.getMessage());
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			map = service.errorMessage(e.getMessage());
+			return new ResponseEntity<Map<String, String>>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return new ResponseEntity<PilotDTO>(dto, HttpStatus.OK);
+		return new ResponseEntity<Map<String, String>>(map, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "insertPrimaryTable")
 	public ResponseEntity<?> postInsertTable(@RequestBody PilotDTO param) {
 		
-		List<PilotDTO> list = null;
+		Map<String, Object> map = null;
 		
 		try {
-			list = service.postInsertTable(param);
+			map = service.postInsertTable(param);
 			
 		} catch (Exception e) {
-			Log.getLog().error(e.getMessage());
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Map<String, String>>(service.errorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		return new ResponseEntity<List<PilotDTO>>(list, HttpStatus.OK);
+		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 	
 	@PostMapping(value = "transferTable")
@@ -94,11 +117,8 @@ public class PilotController {
 			map = service.transferTable(param);
 			
 		} catch (Exception e) {
-			Log.getLog().error(e.getMessage());
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<Map<String, String>>(service.errorMessage(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		
 		return new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);
 	}
 	

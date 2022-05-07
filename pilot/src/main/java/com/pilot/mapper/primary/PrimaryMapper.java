@@ -31,7 +31,7 @@ public interface PrimaryMapper {
 		+ " where table_schema = 'public'"
 		+ " and table_name = #{table}"
 	)
-	public PilotDTO getTable(PilotDTO param) throws Exception;
+	public Map<String, String> getTable(PilotDTO param) throws Exception;
 
 	
 	@Select({"<script>"
@@ -44,10 +44,10 @@ public interface PrimaryMapper {
 		+ " returning *"
 		+ " </script>"
 	})
-	public List<PilotDTO> postInsertTable(PilotDTO param) throws Exception;
+	public List<Map<String, String>> postInsertTable(PilotDTO param) throws Exception;
 	
 	@Select("select *"
 			+ " from ${table}"
 			+ " order by 1 asc")
-	public List<Map<String, String>> getTableData(String table) throws Exception;
+	public List<Map<String, Object>> getTableData(String table) throws Exception;
 }
